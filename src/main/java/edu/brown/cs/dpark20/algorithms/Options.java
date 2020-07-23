@@ -132,26 +132,39 @@ public class Options {
 						portfolio.add(createOption("Buy", "Stock", currPrice, "BLACKSCHOLES"));
 					} else {
 						// mid high low
-						if (low - high >= 2) {
-
+						if (mid - high >= 2) {
+							portfolio.add(createOption("Sell", "Put", currPrice, "BLACKSCHOLES"));
+							portfolio.add(createOption("Buy", "Put", midRange[0], "BLACKSCHOLES"));
+							portfolio.add(createOption("Sell", "Call", currPrice, "BLACKSCHOLES"));
+							portfolio.add(createOption("Buy", "Call", midRange[1], "BLACKSCHOLES"));
 						} else  if (high - low >= 2){
 							portfolio.add(createOption("Buy", "Stock", currPrice, "BLACKSCHOLES"));
 							if (high - low < 3){
 								portfolio.add(createOption("Buy", "Put", midRange[0], "BLACKSCHOLES"));
 							}
 						} else {
-
+							portfolio.add(createOption("Sell", "Put", midRange[0], "BLACKSCHOLES"));
+							portfolio.add(createOption("Buy", "Put", avgString(lowRange[0], lowRange[1]), "BLACKSCHOLES"));
+							portfolio.add(createOption("Sell", "Call", midRange[1], "BLACKSCHOLES"));
+							portfolio.add(createOption("Buy", "Call", avgString(highRange[0], highRange[1]), "BLACKSCHOLES"));
 						}
 					}
 				}
 				else {
 					//mid low high
-					if (low - high >= 2) {
-
-					} else  if (high - mid >= 2){
-
+					if (mid - low >= 2) {
+						portfolio.add(createOption("Sell", "Put", currPrice, "BLACKSCHOLES"));
+						portfolio.add(createOption("Buy", "Put", midRange[0], "BLACKSCHOLES"));
+						portfolio.add(createOption("Sell", "Call", currPrice, "BLACKSCHOLES"));
+						portfolio.add(createOption("Buy", "Call", midRange[1], "BLACKSCHOLES"));
+					} else  if (low - high >= 2){
+						String middle = avgString(midRange[0], midRange[1]);
+						portfolio.add(createOption("Buy", "Put", middle, "BLACKSCHOLES"));
 					} else {
-
+						portfolio.add(createOption("Sell", "Put", midRange[0], "BLACKSCHOLES"));
+						portfolio.add(createOption("Buy", "Put", avgString(lowRange[0], lowRange[1]), "BLACKSCHOLES"));
+						portfolio.add(createOption("Sell", "Call", midRange[1], "BLACKSCHOLES"));
+						portfolio.add(createOption("Buy", "Call", avgString(highRange[0], highRange[1]), "BLACKSCHOLES"));
 					}
 				}
 			}
