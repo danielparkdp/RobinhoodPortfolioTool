@@ -25,6 +25,7 @@ p {
 
 }
 
+
 .column {
   float: left;
   width: 31.33%;
@@ -37,6 +38,8 @@ p {
   margin-right: 1%;
   background-color: white;
   border-radius:25px;
+  min-width: 300px;
+
 }
 
 .row:after {
@@ -51,10 +54,12 @@ p {
 
 .list_element {
   float: left;
-  width: 92%;
+  width: 88%;
   height:100%;
   padding-top: 2%;
   padding-bottom: 2%;
+  padding-left: 2%;
+  padding-right: 2%;
   margin-top: 2%;
   margin-bottom: 2%;
   margin-left: 4%;
@@ -62,33 +67,46 @@ p {
   border: 0.3vh solid black;
   border-radius:10px;
 }
-
+.column_half {
+  float: left;
+  width: 48%;
+  height:100%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  margin-left: 1%;
+  margin-right: 1%;
+  background-color: white;
+  border-radius:25px;
+}
 
 .add_button {
-  float: left;
-  width:10%;
-  padding-top: 10%;
+  float: right;
+  width:15%;
+  padding-top: 15%;
   position: relative;
   margin-top: 4%;
-  margin-left: 37%;
-  margin-right: 1%;
+  /* margin-left: 37%;
+  margin-right: 1%; */
   border: 0.3vh solid grey;
-  border-radius:10px;
+  border-radius:25%;
 }
 .sub_button {
-  float: right;
-  width:10%;
-  padding-top: 10%;
+  float: left;
+  width:15%;
+  padding-top: 15%;
   position: relative;
   margin-top: 4%;
-  margin-right: 37%;
-  margin-left: 1%;
+  /* margin-right: 37%;
+  margin-left: 1%; */
   border: 0.3vh solid grey;
-  border-radius:10px;
+  border-radius:25%;
 }
 
 
 .list {
     list-style: none;
     padding-left: 0px;
+    padding-right: 3px;
 }​

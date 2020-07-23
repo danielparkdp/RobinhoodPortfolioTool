@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
 
+import edu.brown.cs.dpark20.algorithms.Options;
 import freemarker.template.Configuration;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
@@ -89,6 +90,7 @@ public final class Main {
   private static class FrontHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
+      Options options = new Options();
 
       Map<String, Object> variables = ImmutableMap.of("title", "Options and Stock Portfolio Strategy");
       return new ModelAndView(variables, "query.ftl");
