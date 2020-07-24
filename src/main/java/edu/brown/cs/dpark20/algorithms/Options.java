@@ -11,7 +11,10 @@ public class Options {
 
 	String company;
 	String currPrice;
+	String interest;
 	String volatility;
+	String 
+
 
 	/**
 	 * Constructor for Options.
@@ -186,14 +189,15 @@ public class Options {
 		return option;
 	}
 
-	public double blackScholes(double s, double k, double r, double t, boolean isCall){
-		double cost = 0.0;
+	public double blackScholes(double s, double x, double r, double sigma, double t, boolean isCall){
 
-		int callOrPut = -1;
+		double d1 = (Math.log(s/x) + (r + sigma * sigma/2) * t) / (sigma * Math.sqrt(t));
+    double d2 = d1 - sigma * Math.sqrt(t);
+
 		if (isCall){
-			callOrPut = 1;
+			return s * Gaussian.cdf(d1) - x * Math.exp(-r*t) * Gaussian.cdf(d2);
 		}
-		return cost * callOrPut;
+		return (s * Gaussian.cdf(-1*d1) - x * Math.exp(-r*t) * Gaussian.cdf(-1*d2)) * -1;
 	}
 
 	private double getDouble(String s){
