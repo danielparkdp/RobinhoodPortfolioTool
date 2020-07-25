@@ -10,12 +10,16 @@ import edu.brown.cs.dpark20.algorithms.Options;
 import freemarker.template.Configuration;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
+import spark.ExceptionHandler;
 import spark.ModelAndView;
+import spark.QueryParamsMap;
 import spark.Request;
 import spark.Response;
+import spark.Route;
 import spark.Spark;
 import spark.TemplateViewRoute;
 import spark.template.freemarker.FreeMarkerEngine;
+import com.google.gson.Gson;
 
 /**
  * The Main class of our project. This is where execution begins.
@@ -23,6 +27,8 @@ import spark.template.freemarker.FreeMarkerEngine;
 public final class Main {
 
   private static final int DEFAULT_PORT = 4567;
+  private static final Gson GSON = new Gson();
+  private static Options options;
 
 
   /**
@@ -78,6 +84,7 @@ public final class Main {
 
     // Setup Spark Routes
     Spark.get("/", new FrontHandler(), freeMarker);
+    Spark.post("/search", new SubmitHandler());
 
 
 
@@ -90,11 +97,23 @@ public final class Main {
   private static class FrontHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
-      Options options = new Options();
 
       Map<String, Object> variables = ImmutableMap.of("title", "Options and Stock Portfolio Strategy");
       return new ModelAndView(variables, "query.ftl");
     }
+  }
+
+  private static class SubmitHandler implements Route {
+
+    @Override
+    public Object handle(Request req, Response res) throws Exception {
+      QueryParamsMap qm = req.queryMap();
+      options = new Options(qm.value("companyname"), qm.value("currPrice"), qm.value("interest"), qm.value("volatility"), qm.value("time"));
+
+      Map<String, Object> variables = ImmutableMap.of("results", "temporary");
+      return GSON.toJson(variables);
+    }
+
   }
 
   static int getHerokuAssignedPort() {

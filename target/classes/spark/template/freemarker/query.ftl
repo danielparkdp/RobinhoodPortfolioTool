@@ -5,6 +5,11 @@
 <p>
 
 
+<textarea id="companyname" name="companyname" rows="1" cols="15">Company</textarea>
+<textarea id="currPrice" name="currPrice" rows="1" cols="15">Current Price</textarea>
+<textarea id="interest" name="interest" rows="1" cols="15">Interest</textarea>
+<textarea id="volatility" name="volatility" rows="1" cols="15">Volatility</textarea>
+<textarea id="time" name="time" rows="1" cols="15">Time to expiry (years)</textarea>
 
 <div class="row">
   <div class="column">
@@ -125,6 +130,10 @@
       News and Analysis
     </div>
   </div>
+</div>
+
+<div class="row">
+<button type="button" name="submit" id="submit">Submit</button>
 </div>
 
 

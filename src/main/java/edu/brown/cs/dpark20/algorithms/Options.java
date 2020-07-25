@@ -13,16 +13,42 @@ public class Options {
 	String currPrice;
 	String interest;
 	String volatility;
-	String 
+	String time;
 
 
 	/**
 	 * Constructor for Options.
 	 */
-	public Options() {
-		company = "";
-		currPrice = "";
-		volatility = "";
+	public Options(String cpny, String cp, String in, String vol, String tm) {
+		company = cpny;
+		currPrice = cp;
+		interest = in;
+		volatility = vol;
+		time = tm;
+
+		String[] low = new String[3];
+		String[] mid = new String[3];
+		String[] high = new String[3];
+		low[0] = "4";
+		low[1] = "10";
+		low[2] = "20";
+		mid[0] = "2";
+		mid[1] = "20";
+		mid[2] = "24.88";
+		high[0] = "4";
+		high[1] = "24.88";
+		high[2] = "29.12";
+		List<String[]> input = new ArrayList<>();
+		input.add(low);
+		input.add(mid);
+		input.add(high);
+		List<String[]> res = getOptions(input, 0.00);
+		for (String[] s : res){
+			for (String item : s){
+				System.out.println(item);
+			}
+		}
+		System.out.println(company + " " + currPrice);
 
 	}
 
@@ -40,6 +66,10 @@ public class Options {
 		int mid=0;
 		int high=0;
 
+		double s = getDouble(currPrice);
+		double r = getDouble(interest);
+		double sigma = getDouble(volatility);
+		double t = getDouble(time);
 
 
 		for (int i = 0; i < expectations.size(); i++){
@@ -58,6 +88,8 @@ public class Options {
 				highRange[1] = curr[2];
 			}
 		}
+
+
 		if (low == mid && low == high) {
 			lowRange[1] = highRange[1];
 			mid = 0;
@@ -79,17 +111,27 @@ public class Options {
 			highRange = new String[2];
 		}
 
-		int tot = low + mid + high;
+		int tot = 0;
+		if (low != 0){
+			tot += 1;
+		}
+		if (mid != 0) {
+			tot += 1;
+		}
+		if (high != 0) {
+			tot += 1;
+		}
+
 		if (tot == 1){
 			// Long position
-			portfolio.add(createOption("Buy", "Stock", currPrice, "BLACKSCHOLES"));
+			portfolio.add(createOption("Buy", "Stock", currPrice, 0.0));
 		} else if (tot == 2){
 			//Handle possibilities
 			if (low > mid){
-				portfolio.add(createOption("Buy", "Put", lowRange[1], "BLACKSCHOLES"));
+				portfolio.add(createOption("Buy", "Put", lowRange[1], blackScholes(s, getDouble(lowRange[1]), r, sigma, t, false)));
 
 			} else if (mid > low){
-				portfolio.add(createOption("Buy", "Call", lowRange[1], "BLACKSCHOLES"));
+				portfolio.add(createOption("Buy", "Call", lowRange[1], blackScholes(s, getDouble(lowRange[1]), r, sigma, t, true)));
 			}
 
 		} else if (tot == 3){
@@ -98,76 +140,76 @@ public class Options {
 					if (high > low){
 						//high low mid
 						if (high - low >= 2) {
-							portfolio.add(createOption("Buy", "Call", highRange[0], "BLACKSCHOLES"));
+							portfolio.add(createOption("Buy", "Call", highRange[0], blackScholes(s, getDouble(highRange[0]), r, sigma, t, true)));
 						} else  if (low - mid >= 2){
 							String middle = avgString(midRange[0], midRange[1]);
-							portfolio.add(createOption("Buy", "Call", middle, "BLACKSCHOLES"));
-							portfolio.add(createOption("Buy", "Put", middle, "BLACKSCHOLES"));
+							portfolio.add(createOption("Buy", "Call", middle, blackScholes(s, getDouble(middle), r, sigma, t, true)));
+							portfolio.add(createOption("Buy", "Put", middle, blackScholes(s, getDouble(middle), r, sigma, t, false)));
 						} else {
-							portfolio.add(createOption("Sell", "Call", midRange[1], "BLACKSCHOLES"));
-							portfolio.add(createOption("Buy", "Put", midRange[0], "BLACKSCHOLES"));
+							portfolio.add(createOption("Sell", "Call", midRange[1], blackScholes(s, getDouble(midRange[1]), r, sigma, t, true)));
+							portfolio.add(createOption("Buy", "Put", midRange[0], blackScholes(s, getDouble(midRange[0]), r, sigma, t, false)));
 						}
 
 					} else {
 						//low high mid
 						if (low - high >= 2) {
-							portfolio.add(createOption("Buy", "Put", lowRange[1], "BLACKSCHOLES"));
+							portfolio.add(createOption("Buy", "Put", lowRange[1], blackScholes(s, getDouble(lowRange[1]), r, sigma, t, false)));
 						} else  if (high - mid >= 2){
 							String middle = avgString(midRange[0], midRange[1]);
-							portfolio.add(createOption("Buy", "Call", middle, "BLACKSCHOLES"));
-							portfolio.add(createOption("Buy", "Put", middle, "BLACKSCHOLES"));
+							portfolio.add(createOption("Buy", "Call", middle, blackScholes(s, getDouble(middle), r, sigma, t, true)));
+							portfolio.add(createOption("Buy", "Put", middle, blackScholes(s, getDouble(middle), r, sigma, t, false)));
 						} else {
-							portfolio.add(createOption("Sell", "Call", midRange[1], "BLACKSCHOLES"));
-							portfolio.add(createOption("Buy", "Put", midRange[0], "BLACKSCHOLES"));
+							portfolio.add(createOption("Sell", "Call", midRange[1], blackScholes(s, getDouble(midRange[1]), r, sigma, t, true)));
+							portfolio.add(createOption("Buy", "Put", midRange[0], blackScholes(s, getDouble(midRange[0]), r, sigma, t, false)));
 						}
 					}
 				}
 				else {
 					//low mid high
 					String middle = avgString(midRange[0], midRange[1]);
-					portfolio.add(createOption("Buy", "Put", middle, "BLACKSCHOLES"));
+					portfolio.add(createOption("Buy", "Put", middle, blackScholes(s, getDouble(middle), r, sigma, t, false)));
 				}
 
 			} else if (mid > low) {
 				if (high > low){
 					if (high > mid){
 						// high mid low
-						portfolio.add(createOption("Buy", "Stock", currPrice, "BLACKSCHOLES"));
+						portfolio.add(createOption("Buy", "Stock", currPrice, 0.0));
 					} else {
 						// mid high low
 						if (mid - high >= 2) {
-							portfolio.add(createOption("Sell", "Put", currPrice, "BLACKSCHOLES"));
-							portfolio.add(createOption("Buy", "Put", midRange[0], "BLACKSCHOLES"));
-							portfolio.add(createOption("Sell", "Call", currPrice, "BLACKSCHOLES"));
-							portfolio.add(createOption("Buy", "Call", midRange[1], "BLACKSCHOLES"));
+							portfolio.add(createOption("Sell", "Put", currPrice, blackScholes(s, getDouble(currPrice), r, sigma, t, false)));
+							portfolio.add(createOption("Buy", "Put", midRange[0], blackScholes(s, getDouble(midRange[0]), r, sigma, t, false)));
+							portfolio.add(createOption("Sell", "Call", currPrice, blackScholes(s, getDouble(currPrice), r, sigma, t, true)));
+							portfolio.add(createOption("Buy", "Call", midRange[1], blackScholes(s, getDouble(midRange[1]), r, sigma, t, true)));
 						} else  if (high - low >= 2){
-							portfolio.add(createOption("Buy", "Stock", currPrice, "BLACKSCHOLES"));
+							portfolio.add(createOption("Buy", "Stock", currPrice, 0.0));
 							if (high - low < 3){
-								portfolio.add(createOption("Buy", "Put", midRange[0], "BLACKSCHOLES"));
+								portfolio.add(createOption("Buy", "Put", midRange[0], blackScholes(s, getDouble(midRange[0]), r, sigma, t, false)));
 							}
 						} else {
-							portfolio.add(createOption("Sell", "Put", midRange[0], "BLACKSCHOLES"));
-							portfolio.add(createOption("Buy", "Put", avgString(lowRange[0], lowRange[1]), "BLACKSCHOLES"));
-							portfolio.add(createOption("Sell", "Call", midRange[1], "BLACKSCHOLES"));
-							portfolio.add(createOption("Buy", "Call", avgString(highRange[0], highRange[1]), "BLACKSCHOLES"));
+							portfolio.add(createOption("Sell", "Put", midRange[0], blackScholes(s, getDouble(midRange[0]), r, sigma, t, false)));
+							portfolio.add(createOption("Buy", "Put", avgString(lowRange[0], lowRange[1]), blackScholes(s, getDouble(avgString(lowRange[0], lowRange[1])), r, sigma, t, false)));
+							portfolio.add(createOption("Sell", "Call", midRange[1], blackScholes(s, getDouble(midRange[1]), r, sigma, t, true)));
+							portfolio.add(createOption("Buy", "Call", avgString(highRange[0], highRange[1]), blackScholes(s, getDouble(avgString(highRange[0], highRange[1])), r, sigma, t, true)));
 						}
 					}
 				}
 				else {
 					//mid low high
 					if (mid - low >= 2) {
-						portfolio.add(createOption("Sell", "Put", currPrice, "BLACKSCHOLES"));
-						portfolio.add(createOption("Buy", "Put", midRange[0], "BLACKSCHOLES"));
-						portfolio.add(createOption("Sell", "Call", currPrice, "BLACKSCHOLES"));
-						portfolio.add(createOption("Buy", "Call", midRange[1], "BLACKSCHOLES"));
+						portfolio.add(createOption("Sell", "Put", currPrice, blackScholes(s, getDouble(currPrice), r, sigma, t, false)));
+						portfolio.add(createOption("Buy", "Put", midRange[0], blackScholes(s, getDouble(midRange[0]), r, sigma, t, false)));
+						portfolio.add(createOption("Sell", "Call", currPrice, blackScholes(s, getDouble(currPrice), r, sigma, t, true)));
+						portfolio.add(createOption("Buy", "Call", midRange[1], blackScholes(s, getDouble(midRange[1]), r, sigma, t, true)));
 					} else  if (low - high >= 2){
 						String middle = avgString(midRange[0], midRange[1]);
-						portfolio.add(createOption("Buy", "Put", middle, "BLACKSCHOLES"));
+						portfolio.add(createOption("Buy", "Put", middle, blackScholes(s, getDouble(middle), r, sigma, t, false)));
 					} else {
-						portfolio.add(createOption("Sell", "Put", midRange[0], "BLACKSCHOLES"));
-						portfolio.add(createOption("Buy", "Put", avgString(lowRange[0], lowRange[1]), "BLACKSCHOLES"));
-						portfolio.add(createOption("Sell", "Call", midRange[1], "BLACKSCHOLES"));
-						portfolio.add(createOption("Buy", "Call", avgString(highRange[0], highRange[1]), "BLACKSCHOLES"));
+						portfolio.add(createOption("Sell", "Put", midRange[0], blackScholes(s, getDouble(midRange[0]), r, sigma, t, false)));
+						portfolio.add(createOption("Buy", "Put", avgString(lowRange[0], lowRange[1]), blackScholes(s, getDouble(avgString(lowRange[0], lowRange[1])), r, sigma, t, false)));
+						portfolio.add(createOption("Sell", "Call", midRange[1], blackScholes(s, getDouble(midRange[1]), r, sigma, t, true)));
+						portfolio.add(createOption("Buy", "Call", avgString(highRange[0], highRange[1]), blackScholes(s, getDouble(avgString(highRange[0], highRange[1])), r, sigma, t, true)));
 					}
 				}
 			}
@@ -177,15 +219,15 @@ public class Options {
 	}
 
 	private List<String[]> applyMaxLoss(List<String[]> portfolio, double maxLoss){
-		return null;
+		return portfolio;
 	}
 
-	private String[] createOption(String buySell, String callPut, String strike, String premium){
+	private String[] createOption(String buySell, String callPut, String strike, double premium){
 		String[] option = new String[4];
 		option[0] = buySell;
 		option[1] = callPut;
 		option[2] = strike;
-		option[3] = premium;
+		option[3] = twoDecimalString(premium);
 		return option;
 	}
 
@@ -210,9 +252,41 @@ public class Options {
 
 	private String avgString(String a, String b){
 		double c = getDouble(a) + getDouble(b);
-		c = c/2.0;
+		c = c/2.0d+0.0001;
+		String s = Double.toString(c);
+		if (s.contains(".")){
+			int ind = s.indexOf('.');
+			if (ind < s.length() - 2){
+				s = s.substring(0, ind + 3);
+			} else if (ind == s.length()-2){
+				s = s.concat("0");
+			} else {
+				s = s.concat("00");
+			}
+		} else {
+			s = s.concat(".00");
+		}
 
-		return Double.toString(c);
+
+		return s;
+	}
+
+	private String twoDecimalString(double d){
+		String s = Double.toString(d+0.0001);
+		if (s.contains(".")){
+			int ind = s.indexOf('.');
+			if (ind < s.length() - 2){
+				s = s.substring(0, ind + 3);
+			} else if (ind == s.length()-2){
+				s = s.concat("0");
+			} else {
+				s = s.concat("00");
+			}
+		} else {
+			s = s.concat(".00");
+		}
+
+		return s;
 	}
 
 }
