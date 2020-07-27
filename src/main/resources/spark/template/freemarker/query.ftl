@@ -5,11 +5,11 @@
 <p>
 
 
-<textarea id="companyname" name="companyname" rows="1" cols="15">Company</textarea>
-<textarea id="currPrice" name="currPrice" rows="1" cols="15">Current Price</textarea>
-<textarea id="interest" name="interest" rows="1" cols="15">Interest</textarea>
-<textarea id="volatility" name="volatility" rows="1" cols="15">Volatility</textarea>
-<textarea id="time" name="time" rows="1" cols="15">Time to expiry (years)</textarea>
+<textarea id="companyname" name="companyname" rows="1" cols="15"></textarea>
+<textarea id="currPrice" name="currPrice" rows="1" cols="15"></textarea>
+<textarea id="interest" name="interest" rows="1" cols="15"></textarea>
+<textarea id="volatility" name="volatility" rows="1" cols="15"></textarea>
+<textarea id="time" name="time" rows="1" cols="15"></textarea>
 
 <div class="row">
   <div class="column">
@@ -21,36 +21,52 @@
       <li>
         <div class="list_element">
 
-          <select name="left_left_1" id="left_left_1">
-            <option value="1">Highly Unlikely</option>
+          <select name="low" id="low">
+            <option value="1">Most Unlikely</option>
             <option value="2">Unlikely</option>
             <option value="3">Neutral</option>
             <option value="4">Likely</option>
-            <option value="5">Highly Likely</option>
+            <option value="5">Most Likely</option>
           </select>
           to land at price between
-          <textarea id="Premium" name="Premium" rows="1" cols="12"></textarea>
+          <textarea id="low_lower" name="low_lower" rows="1" cols="12"></textarea>
           and
-          <textarea id="Premium" name="Premium" rows="1" cols="12"></textarea>
+          <textarea id="low_upper" name="low_upper" rows="1" cols="12"></textarea>
 
         </div>
       </li>
       <li>
         <div class="list_element">
 
-          <select name="left_left_1" id="left_left_1">
-            <option value="1">Highly Unlikely</option>
+          <select name="mid" id="mid">
+            <option value="1">Most Unlikely</option>
             <option value="2">Unlikely</option>
             <option value="3">Neutral</option>
             <option value="4">Likely</option>
-            <option value="5">Highly Likely</option>
+            <option value="5">Most Likely</option>
           </select>
+          to land at price between
+          <textarea id="mid_lower" name="mid_lower" rows="1" cols="12"></textarea>
+          and
+          <textarea id="mid_upper" name="mid_upper" rows="1" cols="12"></textarea>
 
         </div>
       </li>
       <li>
         <div class="list_element">
-          two
+
+          <select name="high" id="high">
+            <option value="1">Most Unlikely</option>
+            <option value="2">Unlikely</option>
+            <option value="3">Neutral</option>
+            <option value="4">Likely</option>
+            <option value="5">Most Likely</option>
+          </select>
+          to land at price between
+          <textarea id="high_lower" name="high_lower" rows="1" cols="12"></textarea>
+          and
+          <textarea id="high_upper" name="high_upper" rows="1" cols="12"></textarea>
+
         </div>
       </li>
     </ul>

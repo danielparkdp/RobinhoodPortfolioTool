@@ -48,6 +48,10 @@ public class Options {
 				System.out.println(item);
 			}
 		}
+		List<double[]> coords = getGraphPoints(res);
+		for (double[] d : coords){
+			System.out.println(d[0] + " " + d[1]);
+		}
 		System.out.println(company + " " + currPrice);
 
 	}
@@ -222,6 +226,67 @@ public class Options {
 		return portfolio;
 	}
 
+/*
+* build graph
+*/
+	public List<double[]> getGraphPoints(List<String[]> portfolio){
+		List<Double> strikes = new ArrayList<>();
+		List<double[]> points = new ArrayList<>();
+		strikes.add(0.0);
+		for (String[] option : portfolio){
+			double strk = getDouble(option[2]);
+			strikes.add(strk);
+		}
+		double highest = getHighest(strikes);
+		strikes.add(highest + 2*getDouble(currPrice));
+		Collections.sort(strikes);
+		Set<Double> visited = new HashSet<>();
+
+		for (double d : strikes){
+			if(visited.contains(d)){
+				continue;
+			}
+			//calc price
+			double total = 0.0;
+			for (String[] option : portfolio){
+				total += getProfit(d, option);
+			}
+			double[] coord = new double[2];
+			coord[0] = d;
+			coord[1] = total;
+			points.add(coord);
+			visited.add(d);
+		}
+
+		return points;
+	}
+
+/*
+* profit from single option
+*/
+	private double getProfit(double price, String[] option){
+		double ret = 0.0;
+		//double curr = getDouble(currPrice);
+		double strk = getDouble(option[2]);
+		double prem = getDouble(option[3]);
+		if (option[1].equals("Put")){
+			ret = Double.max(strk - price - prem, -1*prem);
+		}
+		else if (option[1].equals("Call")){
+			ret = Double.max(price - strk - prem, -1*prem);
+		}
+		else{
+			ret = price - strk - prem;
+		}
+		//ret=getDouble(twoDecimalString(ret));
+		//ret = (int)(ret*100+0.5) /100.0;
+
+		if (option[0].equals("Sell")){
+			return -1 * ret;
+		}
+		return ret;
+	}
+
 	private String[] createOption(String buySell, String callPut, String strike, double premium){
 		String[] option = new String[4];
 		option[0] = buySell;
@@ -272,7 +337,7 @@ public class Options {
 	}
 
 	private String twoDecimalString(double d){
-		String s = Double.toString(d+0.0001);
+		String s = Double.toString(d+0.00001);
 		if (s.contains(".")){
 			int ind = s.indexOf('.');
 			if (ind < s.length() - 2){
@@ -285,8 +350,17 @@ public class Options {
 		} else {
 			s = s.concat(".00");
 		}
-
 		return s;
+	}
+
+	private double getHighest(List<Double> strikes){
+		double highest = 0.0;
+		for (double d : strikes){
+			if (d>highest){
+				highest = d;
+			}
+		}
+		return highest;
 	}
 
 }
