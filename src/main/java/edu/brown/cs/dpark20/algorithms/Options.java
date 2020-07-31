@@ -26,33 +26,7 @@ public class Options {
 		volatility = vol;
 		time = tm;
 
-		String[] low = new String[3];
-		String[] mid = new String[3];
-		String[] high = new String[3];
-		low[0] = "4";
-		low[1] = "10";
-		low[2] = "20";
-		mid[0] = "2";
-		mid[1] = "20";
-		mid[2] = "24.88";
-		high[0] = "4";
-		high[1] = "24.88";
-		high[2] = "29.12";
-		List<String[]> input = new ArrayList<>();
-		input.add(low);
-		input.add(mid);
-		input.add(high);
-		List<String[]> res = getOptions(input, 0.00);
-		for (String[] s : res){
-			for (String item : s){
-				System.out.println(item);
-			}
-		}
-		List<double[]> coords = getGraphPoints(res);
-		for (double[] d : coords){
-			System.out.println(d[0] + " " + d[1]);
-		}
-		System.out.println(company + " " + currPrice);
+
 
 	}
 
@@ -232,13 +206,15 @@ public class Options {
 	public List<double[]> getGraphPoints(List<String[]> portfolio){
 		List<Double> strikes = new ArrayList<>();
 		List<double[]> points = new ArrayList<>();
-		strikes.add(0.0);
+		//strikes.add(0.0);
 		for (String[] option : portfolio){
 			double strk = getDouble(option[2]);
 			strikes.add(strk);
 		}
+		double lowest = getLowest(strikes);
 		double highest = getHighest(strikes);
-		strikes.add(highest + 2*getDouble(currPrice));
+		strikes.add(0, 0.8*lowest);
+		strikes.add(1.2*highest);
 		Collections.sort(strikes);
 		Set<Double> visited = new HashSet<>();
 
@@ -269,10 +245,10 @@ public class Options {
 		//double curr = getDouble(currPrice);
 		double strk = getDouble(option[2]);
 		double prem = getDouble(option[3]);
-		if (option[1].equals("Put")){
+		if (option[1].toLowerCase().equals("put")){
 			ret = Double.max(strk - price - prem, -1*prem);
 		}
-		else if (option[1].equals("Call")){
+		else if (option[1].toLowerCase().equals("call")){
 			ret = Double.max(price - strk - prem, -1*prem);
 		}
 		else{
@@ -281,13 +257,13 @@ public class Options {
 		//ret=getDouble(twoDecimalString(ret));
 		//ret = (int)(ret*100+0.5) /100.0;
 
-		if (option[0].equals("Sell")){
+		if (option[0].toLowerCase().equals("sell")){
 			return -1 * ret;
 		}
 		return ret;
 	}
 
-	private String[] createOption(String buySell, String callPut, String strike, double premium){
+	public String[] createOption(String buySell, String callPut, String strike, double premium){
 		String[] option = new String[4];
 		option[0] = buySell;
 		option[1] = callPut;
@@ -337,7 +313,7 @@ public class Options {
 	}
 
 	private String twoDecimalString(double d){
-		String s = Double.toString(d+0.00001);
+		String s = Double.toString(d);
 		if (s.contains(".")){
 			int ind = s.indexOf('.');
 			if (ind < s.length() - 2){
@@ -357,6 +333,15 @@ public class Options {
 		double highest = 0.0;
 		for (double d : strikes){
 			if (d>highest){
+				highest = d;
+			}
+		}
+		return highest;
+	}
+	private double getLowest(List<Double> strikes){
+		double highest = Double.MAX_VALUE;
+		for (double d : strikes){
+			if (d<highest){
 				highest = d;
 			}
 		}

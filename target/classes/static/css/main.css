@@ -2,9 +2,9 @@ input[type="number"] {
   width: 3em;
 }
 body {
-	background-image: url("backgrounds/watercolorback.jpg");
+	/* background-image: url("backgrounds/watercolorback.jpg"); */
 
-  background-color: #E7FBFF;
+  background-color: #F8F4EA;
   background-repeat: no-repeat;
   background-position:center center;
   background-size: cover;
@@ -25,6 +25,14 @@ p {
 
 }
 
+.header {
+	font-family: Helvetica;
+	color: #000000;
+  font-size:120%;
+	font-weight: 200;
+	text-align: center;
+  margin-bottom:3%;
+}
 
 .column {
   float: left;
@@ -41,11 +49,18 @@ p {
   min-width: 300px;
 
 }
-
+.row {
+  text-align:center;
+  font-size:0;
+}
 .row:after {
   content: "";
   display: table;
   clear: both;
+}
+
+.submit_row {
+  text-align:center;
 }
 
 .box_header {
@@ -82,31 +97,236 @@ p {
 }
 
 .add_button {
-  float: right;
-  width:15%;
-  padding-top: 15%;
-  position: relative;
-  margin-top: 4%;
-  /* margin-left: 37%;
-  margin-right: 1%; */
-  border: 0.3vh solid grey;
-  border-radius:25%;
+  margin-top: 2%;
+  margin-bottom: 2%;]
+  display:inline-block;
+  width:25px;
+  height:25px;
 }
 .sub_button {
+  margin-top: 2%;
+  margin-bottom: 2%;
+  display:inline-block;
+  width:25px;
+  height:25px;
+}
+
+.low{
+  display:inline-block;
+  width:50%;
+  height:7px;
+  background-color: green;
+}
+
+.mid{
+  display:inline-block;
+  width:10%;
+  height:7px;
+  background-color: red;
+}
+
+.high{
+  display:inline-block;
+  width:10%;
+  height:7px;
+  background-color: blue;
+}
+
+
+.lownum{
+  display:inline-block;
+  width:20%;
+  height:7px;
+  margin-top: 5%;
+  margin-left: 1%;
+  margin-right:1%;
+}
+
+.midnum{
+  display:inline-block;
+  width:20%;
+  height:7px;
+  margin-top: 5%;
+  margin-left: 1%;
+  margin-right:1%;
+}
+
+.highnum{
+  display:inline-block;
+  width:20%;
+  margin-top: 5%;
+  margin-left: 1%;
+  margin-right:1%;
+}
+
+.blocc{
+  display:inline-block;
+  width:2px;
+  height:14px;
+  background-color: black;
+}
+
+.constain {
+  text-align:center;
+  visibility: hidden;
+}
+
+/*New Query CSS
+*/
+
+.input_box {
   float: left;
-  width:15%;
-  padding-top: 15%;
-  position: relative;
-  margin-top: 4%;
-  /* margin-right: 37%;
-  margin-left: 1%; */
-  border: 0.3vh solid grey;
-  border-radius:25%;
+  width: 85%;
+  height:100%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  padding-right: 2%;
+  padding-left: 2%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  margin-left: 7.5%;
+  margin-right: 7.5%;
+  
+  border-radius:25px;
+  min-width: 300px;
+}
+
+.querybox{
+  padding-top:2px;
+  padding-bottom:1px;
+  width:80%;
+  margin-bottom:2%;
+  margin-top:2%;
+}
+.queryinput{
+  width:76%;
+  margin-bottom:2%;
 }
 
 
 .list {
     list-style: none;
     padding-left: 0px;
-    padding-right: 3px;
+    padding-right: 0px;
 }​
+
+.remove{
+  color:red;
+}
+
+table, th, td {
+  font-family: Helvetica;
+  border: 1px solid grey;
+  width: 25%;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}
+table {
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+th {
+  height: 50px;
+  font-weight: normal;
+}
+
+tr:hover {background-color: #F8F4EA;}
+td {
+  padding: 15px;
+  text-align: left;
+}
+
+
+select {
+  width:100%;
+}
+
+.remove{
+  color:#C10F0F;
+  border: none;
+  background-color: transparent;
+  outline-color: #C10F0F;
+}
+
+
+/*
+<th></th>
+<td><button name="rm" id="rm" class="remove">x</button></td>
+*/
+
+/*
+<table name="portfolio" id="portfolio">
+  <tr>
+    <th>Buy / Sell</th>
+    <th>Call / Put / Stock</th>
+    <th>Strike Price</th>
+    <th>Premium</th>
+  </tr>
+  <tr>
+    <td>
+      <select name="buySell" id="buySell">
+        <option value="buy" selected>Buy</option>
+        <option value="sell">Sell</option>
+      </select>
+    </td>
+    <td>
+      <select name="callPut" id="callPut">
+        <option value="call" selected>Call</option>
+        <option value="put">Put</option>
+        <option value="stock">Stock</option>
+      </select>
+    </td>
+    <td><input style='width:93%;' type="number" step="0.01" name="strk" id="strk"></td>
+    <td><input style='width:93%;' type="number" step="0.01" name="prem" id="prem"></td>
+
+  </tr>
+  <tr>
+    <td>
+      <select name="buySell" id="buySell">
+        <option value="buy" selected>Buy</option>
+        <option value="sell">Sell</option>
+      </select>
+    </td>
+    <td>
+      <select name="callPut" id="callPut">
+        <option value="call" selected>Call</option>
+        <option value="put">Put</option>
+        <option value="stock">Stock</option>
+      </select>
+    </td>
+    <td><input style='width:93%;' type="number" step="0.01" name="strk" id="strk"></td>
+    <td><input style='width:93%;' type="number" step="0.01" name="prem" id="prem"></td>
+
+  </tr>
+</table>
+*/
+/*
+String[] low = new String[3];
+String[] mid = new String[3];
+String[] high = new String[3];
+low[0] = "4";
+low[1] = "10";
+low[2] = "20";
+mid[0] = "2";
+mid[1] = "20";
+mid[2] = "24.88";
+high[0] = "4";
+high[1] = "24.88";
+high[2] = "29.12";
+List<String[]> input = new ArrayList<>();
+input.add(low);
+input.add(mid);
+input.add(high);
+List<String[]> res = getOptions(input, 0.00);
+for (String[] s : res){
+  for (String item : s){
+    System.out.println(item);
+  }
+}
+List<double[]> coords = getGraphPoints(res);
+for (double[] d : coords){
+  System.out.println(d[0] + " " + d[1]);
+}
+System.out.println(company + " " + currPrice); */

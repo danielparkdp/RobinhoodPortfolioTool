@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/html5bp.css">
     <link rel="stylesheet" href="css/main.css">
-    <link rel="shortcut icon" type= "image/png" href = "favicon.ico">
+    <link rel="shortcut icon" type= "image/png" href = "css/backgrounds/123.png">
   </head>
   <body>
      ${content}
@@ -17,6 +17,7 @@
      <script src="js/jquery-2.1.1.js"></script>
      <script src="js/jquery-3.1.1.js"></script>
      <script src="js/algo.js"></script>
+     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
   </body>
   <!-- See http://html5boilerplate.com/ for a good place to start

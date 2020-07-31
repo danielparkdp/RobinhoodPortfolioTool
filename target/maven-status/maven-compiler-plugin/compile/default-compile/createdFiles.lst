@@ -1,4 +1,5 @@
 edu/brown/cs/dpark20/main/Main.class
+edu/brown/cs/dpark20/main/Main$RefreshHandler.class
 edu/brown/cs/dpark20/algorithms/Options.class
 edu/brown/cs/dpark20/algorithms/Gaussian.class
 edu/brown/cs/dpark20/main/Main$SubmitHandler.class

@@ -5,150 +5,76 @@
 <p>
 
 
-<textarea id="companyname" name="companyname" rows="1" cols="15"></textarea>
-<textarea id="currPrice" name="currPrice" rows="1" cols="15"></textarea>
-<textarea id="interest" name="interest" rows="1" cols="15"></textarea>
-<textarea id="volatility" name="volatility" rows="1" cols="15"></textarea>
-<textarea id="time" name="time" rows="1" cols="15"></textarea>
+<textarea id="companyname" name="companyname" rows="1" cols="15">2</textarea>
+<textarea id="currPrice" name="currPrice" rows="1" cols="15">2</textarea>
+<textarea id="interest" name="interest" rows="1" cols="15">2</textarea>
+<textarea id="volatility" name="volatility" rows="1" cols="15">2</textarea>
+<textarea id="time" name="time" rows="1" cols="15">2</textarea>
 
-<div class="row">
-  <div class="column">
-    <div class="box_header">
-      Price Expectations at Expiry Date
-    </div>
 
-    <ul name="choices" id="choices" class="list">
-      <li>
-        <div class="list_element">
 
-          <select name="low" id="low">
-            <option value="1">Most Unlikely</option>
-            <option value="2">Unlikely</option>
-            <option value="3">Neutral</option>
-            <option value="4">Likely</option>
-            <option value="5">Most Likely</option>
-          </select>
-          to land at price between
-          <textarea id="low_lower" name="low_lower" rows="1" cols="12"></textarea>
-          and
-          <textarea id="low_upper" name="low_upper" rows="1" cols="12"></textarea>
 
-        </div>
-      </li>
-      <li>
-        <div class="list_element">
-
-          <select name="mid" id="mid">
-            <option value="1">Most Unlikely</option>
-            <option value="2">Unlikely</option>
-            <option value="3">Neutral</option>
-            <option value="4">Likely</option>
-            <option value="5">Most Likely</option>
-          </select>
-          to land at price between
-          <textarea id="mid_lower" name="mid_lower" rows="1" cols="12"></textarea>
-          and
-          <textarea id="mid_upper" name="mid_upper" rows="1" cols="12"></textarea>
-
-        </div>
-      </li>
-      <li>
-        <div class="list_element">
-
-          <select name="high" id="high">
-            <option value="1">Most Unlikely</option>
-            <option value="2">Unlikely</option>
-            <option value="3">Neutral</option>
-            <option value="4">Likely</option>
-            <option value="5">Most Likely</option>
-          </select>
-          to land at price between
-          <textarea id="high_lower" name="high_lower" rows="1" cols="12"></textarea>
-          and
-          <textarea id="high_upper" name="high_upper" rows="1" cols="12"></textarea>
-
-        </div>
-      </li>
-    </ul>
-
-    <div class="column_half">
-      <div name="add_button_left" id="add_button_left" class="add_button">
-
-      </div>
-    </div>
-
-    <div class="column_half">
-      <div name="sub_button_left" id="sub_button_left" class="sub_button">
-
-      </div>
-    </div>
-
+<div class="input_box">
+  <div class="header">
+    Price Expectations at Expiry Date
+  </div>
+  <div class="row">
+    <div class="blocc"></div>
+    <div class="low"></div>
+    <div class="blocc"></div>
+    <div class="mid"></div>
+    <div class="blocc"></div>
+    <div class="high"></div>
+    <div class="blocc"></div>
   </div>
 
-  <div class="column">
-    <div class="box_header">
-      Investment Portfolio
+  <div class="submit_row">
+    <div class="lownum">
+      Downside Expectation:<br>
+      <select name="downsideProb" id="downsideProb" class="querybox">
+        <option value="zero">0 (N/A)</option>
+        <option value="one">1 (Most Unlikely)</option>
+        <option value="two">2</option>
+        <option value="three">3 (Neutral)</option>
+        <option value="four">4</option>
+        <option value="five">5(Most Likely)</option>
+      </select><br>
+      <input class="queryinput" style='width:76%;' placeHolder="Range Lower Limit" type="number" step="0.01" name="downsideLower" id="downsideLower"><br>
+      <input class="queryinput" style='width:76%;' placeHolder="Range Upper Limit" type="number" step="0.01" name="downsideUpper" id="downsideUpper">
     </div>
+    <div class="midnum">
+      Mid-range Expectation:<br>
+      <select name="midrangeProb" id="midrangeProb" class="querybox">
+        <option value="one">1 (Most Unlikely)</option>
+        <option value="two">2</option>
+        <option value="three" selected>3 (Neutral)</option>
+        <option value="four">4</option>
+        <option value="five">5(Most Likely)</option>
+      </select><br>
+      <input class="queryinput" style='width:76%;' placeHolder="0.00" type="number" step="0.01" name="midrangeLower" id="midrangeLower"><br>
+      <input class="queryinput" style='width:76%;' placeHolder="1000.00" type="number" step="0.01" name="midrangeUpper" id="midrangeUpper">
 
-    <ul name="choices" id="choices" class="list">
-      <li>
-        <div class="list_element">
-
-          <select name="left_left_1" id="left_left_1">
-            <option value="Buy">Buy</option>
-            <option value="Sell">Sell</option>
-          </select>
-          <select name="left_middle_2" id="left_middle_2">
-            <option value="Call">Call</option>
-            <option value="Put">Put</option>
-          </select>
-          <input type="number" name="Strike" id="Strike" placeholder="0.00" step="0.01" min="0">
-          at
-          <textarea id="Premium" name="Premium" rows="1" cols="12">Premium</textarea>
-
-        </div>
-      </li>
-      <li>
-        <div class="list_element">
-
-          <select name="left_left_2" id="left_left_2">
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
-          </select>
-
-        </div>
-      </li>
-      <li>
-        <div class="list_element">
-          two
-        </div>
-      </li>
-    </ul>
-
-    <div class="column_half">
-      <div name="add_button_left" id="add_button_left" class="add_button">
-
-      </div>
     </div>
+    <div class="highnum">
+      Upside Expectation:<br>
+      <select name="upsideProb" id="upsideProb" class="querybox">
+        <option value="zero">0 (N/A)</option>
+        <option value="one">1 (Most Unlikely)</option>
+        <option value="two">2</option>
+        <option value="three">3 (Neutral)</option>
+        <option value="four">4</option>
+        <option value="five">5(Most Likely)</option>
+      </select><br>
+      <input class="queryinput" style='width:76%;' placeHolder="Range Lower Limit" type="number" step="0.01" name="upsideLower" id="upsideLower"><br>
+      <input class="queryinput" style='width:76%;' placeHolder="Range Upper Limit" type="number" step="0.01" name="upsideUpper" id="upsideUpper">
 
-    <div class="column_half">
-      <div name="sub_button_left" id="sub_button_left" class="sub_button">
-
-      </div>
-    </div>
-
-  </div>
-
-  <div class="column">
-    <div class="box_header">
-      News and Analysis
     </div>
   </div>
+
 </div>
 
-<div class="row">
+<br>
+<div class="submit_row">
   <button type="button" name="submit" id="submit">Submit</button>
 </div>
 
@@ -158,6 +84,27 @@
 
 
 </p>
+
+<div class="input_box" style="overflow-x:auto;">
+
+  <table name="portfolio" id="portfolio">
+
+  </table>
+
+  <div name="buttons" id="buttons" class="constain">
+    <button name="add_button" id="add_button" class="add_button">+</button>
+    <button name="sub_button" id="sub_button" class="sub_button">-</button>
+    <br>
+    <button type="button" name="refresh" id="refresh">Refresh</button>
+    <div name="error2" id="error2">
+  </div>
+
+<br>
+<br>
+
+
+  <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+</div>
 
 </#assign>
 <#include "main.ftl">
