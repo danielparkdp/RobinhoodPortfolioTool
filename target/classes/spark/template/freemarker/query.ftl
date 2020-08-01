@@ -1,15 +1,15 @@
 <#assign content>
 
-<h1> <br> ${title} <br></h1>
+<h1> <br> ${title} <br></h1><br>
 
 <p>
 
 
-<textarea id="companyname" name="companyname" rows="1" cols="15">2</textarea>
-<textarea id="currPrice" name="currPrice" rows="1" cols="15">2</textarea>
-<textarea id="interest" name="interest" rows="1" cols="15">2</textarea>
-<textarea id="volatility" name="volatility" rows="1" cols="15">2</textarea>
-<textarea id="time" name="time" rows="1" cols="15">2</textarea>
+<input style='width:14%;' id="companyname" name="companyname" rows="1" cols="15" placeHolder="Company Ticker" >
+<input style='width:14%;'  id="currPrice" name="currPrice" rows="1" cols="15" type="number" step="0.01" placeHolder="Current Price" >
+<input style='width:14%;'  id="interest" name="interest" rows="1" cols="15" type="number" step="0.01" placeHolder="Risk-Free Interest Rate" >
+<input style='width:14%;'  id="volatility" name="volatility" rows="1" cols="15" type="number" step="0.01" placeHolder="Volatility" >
+<input style='width:14%;'  id="time" name="time" rows="1" cols="15" type="number" step="0.01" placeHolder="Time to Expiry (yrs)" >
 
 
 
@@ -20,11 +20,11 @@
   </div>
   <div class="row">
     <div class="blocc"></div>
-    <div class="low"></div>
+    <div class="low" id="lowLine"></div>
     <div class="blocc"></div>
-    <div class="mid"></div>
+    <div class="mid" id="midLine"></div>
     <div class="blocc"></div>
-    <div class="high"></div>
+    <div class="high" id="highLine"></div>
     <div class="blocc"></div>
   </div>
 
@@ -49,7 +49,7 @@
         <option value="two">2</option>
         <option value="three" selected>3 (Neutral)</option>
         <option value="four">4</option>
-        <option value="five">5(Most Likely)</option>
+        <option value="five">5 (Most Likely)</option>
       </select><br>
       <input class="queryinput" style='width:76%;' placeHolder="0.00" type="number" step="0.01" name="midrangeLower" id="midrangeLower"><br>
       <input class="queryinput" style='width:76%;' placeHolder="1000.00" type="number" step="0.01" name="midrangeUpper" id="midrangeUpper">
@@ -63,7 +63,7 @@
         <option value="two">2</option>
         <option value="three">3 (Neutral)</option>
         <option value="four">4</option>
-        <option value="five">5(Most Likely)</option>
+        <option value="five">5 (Most Likely)</option>
       </select><br>
       <input class="queryinput" style='width:76%;' placeHolder="Range Lower Limit" type="number" step="0.01" name="upsideLower" id="upsideLower"><br>
       <input class="queryinput" style='width:76%;' placeHolder="Range Upper Limit" type="number" step="0.01" name="upsideUpper" id="upsideUpper">
@@ -73,19 +73,16 @@
 
 </div>
 
-<br>
-<div class="submit_row">
-  <button type="button" name="submit" id="submit">Submit</button>
+<div class="submit_row_butn">
+  <button type="button" name="submit" id="submit" class="button_submit">Submit</button>
 </div>
-
 <div name="error" id="error">
 
 </div>
 
-
 </p>
 
-<div class="input_box" style="overflow-x:auto;">
+<div class="input_box" style="overflow-x:auto;" id="results">
 
   <table name="portfolio" id="portfolio">
 
@@ -95,7 +92,7 @@
     <button name="add_button" id="add_button" class="add_button">+</button>
     <button name="sub_button" id="sub_button" class="sub_button">-</button>
     <br>
-    <button type="button" name="refresh" id="refresh">Refresh</button>
+    <button type="button" name="refresh" id="refresh" class="button_submit">Refresh</button>
     <div name="error2" id="error2">
   </div>
 
@@ -103,8 +100,9 @@
 <br>
 
 
-  <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+  <div id="chartContainer" style="height: 300px; width: 95%;margin-left: auto;margin-right: auto; "></div>
 </div>
+<br>
 
 </#assign>
 <#include "main.ftl">

@@ -5,6 +5,7 @@ const err2 = $("#error2");
 const table = $("#portfolio");
 const buttons = $("#buttons");
 const refresh = $("#refresh");
+const rslts = $("#results");
 const addButton = $("#add_button");
 const subButton = $("#sub_button");
 
@@ -31,6 +32,7 @@ $(document).ready(() => {
 			document.getElementById("downsideLower").value = document.getElementById("downsideLower").placeholder;
 			document.getElementById("downsideUpper").value = document.getElementById("downsideUpper").placeholder;
 		}
+		drawLine();
 
 	});
 
@@ -38,6 +40,7 @@ $(document).ready(() => {
 		if (document.getElementById("downsideProb").value === "zero") {
 			document.getElementById("downsideProb").value = "three";
 		}
+		drawLine();
 	});
 
 	input3.change(function() {
@@ -47,6 +50,7 @@ $(document).ready(() => {
 				document.getElementById("downsideProb").value = "three";
 			}
 		}
+		drawLine();
 
 	});
 
@@ -55,6 +59,7 @@ $(document).ready(() => {
 			document.getElementById("midrangeLower").value = "Range Lower Limit";
 			document.getElementById("midrangeUpper").value = "Range Upper Limit";
 		}
+		drawLine();
 
 	});
 
@@ -65,6 +70,7 @@ $(document).ready(() => {
 				document.getElementById("midrangeProb").value = "three";
 			}
 		}
+		drawLine();
 
 	});
 
@@ -75,6 +81,7 @@ $(document).ready(() => {
 				document.getElementById("midrangeProb").value = "three";
 			}
 		}
+		drawLine();
 
 	});
 
@@ -83,7 +90,7 @@ $(document).ready(() => {
 			document.getElementById("upsideLower").value = document.getElementById("upsideLower").placeholder;
 			document.getElementById("upsideUpper").value = document.getElementById("upsideUpper").placeholder;
 		}
-
+		drawLine();
 	});
 
 	input8.change(function() {
@@ -93,6 +100,7 @@ $(document).ready(() => {
 				document.getElementById("upsideProb").value = "three";
 			}
 		}
+		drawLine();
 
 	});
 
@@ -100,6 +108,7 @@ $(document).ready(() => {
 		if (document.getElementById("upsideProb").value === "zero") {
 			document.getElementById("upsideProb").value = "three";
 		}
+		drawLine();
 
 	});
 
@@ -128,8 +137,26 @@ $(document).ready(() => {
 		}
 		else {
 			err.text("");
+			if (input2 === "") {
+				input2 = "0";
+			}
+			if (input3 === "") {
+				input3 = "0";
+			}
+			if (input5 === "") {
+				input5 = "0";
+			}
+			if (input6 === "") {
+				input6 = "0";
+			}
+			if (input8 === "") {
+				input8 = "0";
+			}
+			if (input9 === "") {
+				input9 = "0";
+			}
 			let inputs = "" + input1 + "," + input2 + "," + input3 + "," + input4 + "," + input5 + "," + input6 + "," + input7 + "," + input8 + "," + input9;
-console.log(inputs);
+
 			const postParameters = {companyname : currText1, currPrice : currText2
 							, interest : currText3,
 							volatility : currText4,
@@ -160,7 +187,7 @@ console.log(inputs);
 				//
 				//   })
 				// })
-
+				document.getElementById("results").scrollIntoView({behavior: "smooth"});
 			});
 		}
 	});
@@ -239,6 +266,72 @@ console.log(inputs);
 
 });
 
+function drawLine() {
+	let input1 = document.getElementById("downsideProb").value;
+	let input2 = document.getElementById("downsideLower").value;
+	let input3 = document.getElementById("downsideUpper").value;
+	let input4 = document.getElementById("midrangeProb").value;
+	let input5 = document.getElementById("midrangeLower").value;
+	let input6 = document.getElementById("midrangeUpper").value;
+	let input7 = document.getElementById("upsideProb").value;
+	let input8 = document.getElementById("upsideLower").value;
+	let input9 = document.getElementById("upsideUpper").value;
+
+	let line1 = $("#lowLine");
+	let line2 = $("#midLine");
+	let line3 = $("#highLine");
+
+	line1.css("background-color", getColor(input1));
+	line2.css("background-color", getColor(input4));
+	line3.css("background-color", getColor(input7));
+	let low = 0.0;
+	let mid = 0.0;
+	let high = 0.0;
+	if (input1 != "zero" && checkDouble(input2) && checkDouble(input3)){
+		low = parseFloat(input3) - parseFloat(input2);
+		if (low < 0.0) {
+			document.getElementById("downsideLower").value = input3;
+		}
+	}
+	if (input4 != "zero" && checkDouble(input5) && checkDouble(input6)){
+		mid = parseFloat(input6) - parseFloat(input5);
+		if (mid < 0.0) {
+			err.text("Ensure all lower bounds are below upper bounds.");
+		}
+	}
+	if (input7 != "zero" && checkDouble(input8) && checkDouble(input9)){
+		high = parseFloat(input9) - parseFloat(input8);
+		if (high < 0.0) {
+			document.getElementById("upsideUpper").value = input8;
+		}
+	}
+	let total = low + mid + high;
+	low = low / total;
+	mid = mid / total;
+	high = high / total;
+	//
+	// let currLow = line1.css("width");
+	// currLow = parseFloat(currLow.substring(0, currLow.length-1));
+
+	line1.css("width", (low*70)+"%");
+	line2.css("width", (mid*70)+"%");
+	line3.css("width", (high*70)+"%");
+
+}
+
+function getColor(val) {
+	if (val === "five"){
+		return "#65FC6C";
+	} else if (val === "four"){
+		return "#BEFC65";
+	} else if (val === "three"){
+		return "#FCF365";
+	} else if (val === "two"){
+		return "#FCA065";
+	} else {
+		return "#FC6C65";
+	}
+}
 
 function drawGraph(points) {
 	let dp = [];
@@ -252,7 +345,7 @@ function drawGraph(points) {
 		animationEnabled: true,
 		theme: "light2",
 		title:{
-			text: "Options Strategy P/L Graph",
+			text: document.getElementById("companyname").value + ": Options Strategy P/L Graph",
 			fontFamily: "helvetica",
 			fontWeight: "lighter"
 		},

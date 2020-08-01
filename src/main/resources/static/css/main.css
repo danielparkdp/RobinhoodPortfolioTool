@@ -63,6 +63,11 @@ p {
   text-align:center;
 }
 
+.submit_row_butn {
+  text-align:center;
+  margin-bottom: 2%;
+}
+
 .box_header {
   text-align: center;
 }
@@ -102,6 +107,9 @@ p {
   display:inline-block;
   width:25px;
   height:25px;
+  background-color: #F8F2E2;
+  border-radius:5px;
+  outline-color: #712700;
 }
 .sub_button {
   margin-top: 2%;
@@ -109,27 +117,40 @@ p {
   display:inline-block;
   width:25px;
   height:25px;
+  background-color: #F8F2E2;
+  border-radius:5px;
+  outline-color: #712700;
+}
+
+.button_submit {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 3px;
+  padding-right: 3px;
+  background-color: #F8F2E2;
+  border-radius:5px;
+  outline-color: #712700;
 }
 
 .low{
   display:inline-block;
-  width:50%;
+  width:0%;
   height:7px;
-  background-color: green;
+  background-color: #FCF365;
 }
 
 .mid{
   display:inline-block;
-  width:10%;
+  width:70%;
   height:7px;
-  background-color: red;
+  background-color: #FCF365;
 }
 
 .high{
   display:inline-block;
-  width:10%;
+  width:0%;
   height:7px;
-  background-color: blue;
+  background-color: #FCF365;
 }
 
 
@@ -175,7 +196,8 @@ p {
 */
 
 .input_box {
-  float: left;
+  float: center;
+  text-align: center;
   width: 85%;
   height:100%;
   padding-top: 5%;
@@ -183,10 +205,10 @@ p {
   padding-right: 2%;
   padding-left: 2%;
   margin-top: 2%;
-  margin-bottom: 2%;
+  margin-bottom: 0%;
   margin-left: 7.5%;
   margin-right: 7.5%;
-  
+
   border-radius:25px;
   min-width: 300px;
 }
@@ -232,7 +254,7 @@ th {
   font-weight: normal;
 }
 
-tr:hover {background-color: #F8F4EA;}
+tr:hover {background-color: #F8F2E2;}
 td {
   padding: 15px;
   text-align: left;
