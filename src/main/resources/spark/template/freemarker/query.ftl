@@ -14,7 +14,7 @@
 
 
 
-<div class="input_box">
+<div class="input_box" id="input_area">
   <div class="header">
     Price Expectations at Expiry Date
   </div>
@@ -74,7 +74,7 @@
 </div>
 
 <div class="submit_row_butn">
-  <button type="button" name="submit" id="submit" class="button_submit">Submit</button>
+  <button type="button" name="submit" id="submit" class="button_submit"></button>
 </div>
 <div name="error" id="error">
 
@@ -82,7 +82,7 @@
 
 </p>
 
-<div class="input_box" style="overflow-x:auto;" id="results">
+<div class="input_box2" style="overflow-x:auto;" id="results">
 
   <table name="portfolio" id="portfolio">
 
@@ -92,7 +92,8 @@
     <button name="add_button" id="add_button" class="add_button">+</button>
     <button name="sub_button" id="sub_button" class="sub_button">-</button>
     <br>
-    <button type="button" name="refresh" id="refresh" class="button_submit">Refresh</button>
+    <br>
+    <button type="button" name="refresh" id="refresh" class="button_refresh"></button>
     <div name="error2" id="error2">
   </div>
 

@@ -8,6 +8,7 @@ const refresh = $("#refresh");
 const rslts = $("#results");
 const addButton = $("#add_button");
 const subButton = $("#sub_button");
+const inputArea = $("#input_area");
 
 const input1 = $("#downsideProb");
 const input2 = $("#downsideLower");
@@ -156,6 +157,8 @@ $(document).ready(() => {
 				input9 = "0";
 			}
 			let inputs = "" + input1 + "," + input2 + "," + input3 + "," + input4 + "," + input5 + "," + input6 + "," + input7 + "," + input8 + "," + input9;
+			rslts.css("visibility", "visible");
+			rslts.css("height", "100%");
 
 			const postParameters = {companyname : currText1, currPrice : currText2
 							, interest : currText3,

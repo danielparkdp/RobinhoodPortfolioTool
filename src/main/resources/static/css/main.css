@@ -66,6 +66,7 @@ p {
 .submit_row_butn {
   text-align:center;
   margin-bottom: 2%;
+
 }
 
 .box_header {
@@ -109,7 +110,7 @@ p {
   height:25px;
   background-color: #F8F2E2;
   border-radius:5px;
-  outline-color: #712700;
+  outline-color: #F8EED5;
 }
 .sub_button {
   margin-top: 2%;
@@ -119,7 +120,7 @@ p {
   height:25px;
   background-color: #F8F2E2;
   border-radius:5px;
-  outline-color: #712700;
+  outline-color: #F8EED5;
 }
 
 .button_submit {
@@ -127,9 +128,33 @@ p {
   padding-bottom: 3px;
   padding-left: 3px;
   padding-right: 3px;
-  background-color: #F8F2E2;
+  background-color: transparent;
   border-radius:5px;
-  outline-color: #712700;
+  outline-color: #F8EED5;
+  border-width: 0px;
+
+
+  background-image: url("backgrounds/down.png");
+  background-size: cover;
+  width: 45px;
+  height: 45px;
+}
+
+.button_refresh {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 3px;
+  padding-right: 3px;
+  background-color: transparent;
+  border-radius:5px;
+  outline-color: #F8EED5;
+  border-width: 0px;
+
+
+  background-image: url("backgrounds/rfrsh.png");
+  background-size: cover;
+  width: 45px;
+  height: 45px;
 }
 
 .low{
@@ -208,7 +233,26 @@ p {
   margin-bottom: 0%;
   margin-left: 7.5%;
   margin-right: 7.5%;
+  visibility: visible;
 
+  border-radius:25px;
+  min-width: 300px;
+}
+
+.input_box2 {
+  float: center;
+  text-align: center;
+  width: 85%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  padding-right: 2%;
+  padding-left: 2%;
+  margin-top: 2%;
+  margin-bottom: 0%;
+  margin-left: 7.5%;
+  margin-right: 7.5%;
+  height:0px;
+  visibility: hidden;
   border-radius:25px;
   min-width: 300px;
 }
