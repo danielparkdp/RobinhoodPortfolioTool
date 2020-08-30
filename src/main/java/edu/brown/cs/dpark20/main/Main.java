@@ -7,6 +7,7 @@ import java.util.*;
 import com.google.common.collect.ImmutableMap;
 
 import edu.brown.cs.dpark20.algorithms.Options;
+import edu.brown.cs.dpark20.algorithms.Company;
 import freemarker.template.Configuration;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
@@ -86,7 +87,7 @@ public final class Main {
     Spark.get("/", new FrontHandler(), freeMarker);
     Spark.post("/search", new SubmitHandler());
     Spark.post("/refresh", new RefreshHandler());
-
+    Spark.post("/company", new CompanyHandler());
 
 
   }
@@ -129,27 +130,43 @@ public final class Main {
   }
 
 
-    private static class RefreshHandler implements Route {
+  private static class RefreshHandler implements Route {
 
-      @Override
-      public Object handle(Request req, Response res) throws Exception {
-        QueryParamsMap qm = req.queryMap();
+    @Override
+    public Object handle(Request req, Response res) throws Exception {
+      QueryParamsMap qm = req.queryMap();
 
-        String s = qm.value("portfolio");
-        String[] split = s.split(",");
-    		List<String[]> opts = new ArrayList<>();
-        for (int i = 3; i < split.length; i+=4){
-          opts.add(options.createOption(split[i-3], split[i-2], split[i-1], Double.parseDouble(split[i])));
-        }
-
-    		List<double[]> coords = options.getGraphPoints(opts);
-
-
-        Map<String, Object> variables = ImmutableMap.of("graphPoints", coords);
-        return GSON.toJson(variables);
+      String s = qm.value("portfolio");
+      String[] split = s.split(",");
+  		List<String[]> opts = new ArrayList<>();
+      for (int i = 3; i < split.length; i+=4){
+        opts.add(options.createOption(split[i-3], split[i-2], split[i-1], Double.parseDouble(split[i])));
       }
 
+  		List<double[]> coords = options.getGraphPoints(opts);
+
+
+      Map<String, Object> variables = ImmutableMap.of("graphPoints", coords);
+      return GSON.toJson(variables);
     }
+
+  }
+
+  private static class CompanyHandler implements Route {
+
+    @Override
+    public Object handle(Request req, Response res) throws Exception {
+      QueryParamsMap qm = req.queryMap();
+
+      String s = qm.value("companyName");
+
+      Company comp = new Company(s);
+
+      Map<String, Object> variables = ImmutableMap.of("price", comp.getPrice());
+      return GSON.toJson(variables);
+    }
+
+  }
 
   static int getHerokuAssignedPort() {
       ProcessBuilder processBuilder = new ProcessBuilder();

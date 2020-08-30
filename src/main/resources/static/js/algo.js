@@ -20,6 +20,8 @@ const input7 = $("#upsideProb");
 const input8 = $("#upsideLower");
 const input9 = $("#upsideUpper");
 
+const company = $("#companyname");
+
 
 let chart;
 let portSize = 0;
@@ -28,6 +30,28 @@ let portSize = 0;
 
 
 $(document).ready(() => {
+
+	company.change(function() {
+		// currPrice = document.getElementById("currPrice").value.trim();
+	  // interest = document.getElementById("interest").value.trim();
+	  // volatility = document.getElementById("volatility").value.trim();
+		// time = document.getElementById("time").value.trim();
+		companyName = document.getElementById("companyname").value.trim();
+
+		const postParameters = {companyName : companyName};
+
+		$.post("/company", postParameters, responseJSON => {
+			const responseObject = JSON.parse(responseJSON);
+			let price = responseObject.price;
+			if (price < 0.0){
+				err.text("Invalid Stock Ticker");
+			} else {
+				document.getElementById("currPrice").value = price;
+			}
+		});
+
+	});
+
 	input1.change(function() {
 		if (document.getElementById("downsideProb").value === "zero"){
 			document.getElementById("downsideLower").value = document.getElementById("downsideLower").placeholder;

@@ -6,9 +6,9 @@
 
 
 <input style='width:14%;' id="companyname" name="companyname" rows="1" cols="15" placeHolder="Company Ticker" >
-<input style='width:14%;'  id="currPrice" name="currPrice" rows="1" cols="15" type="number" step="0.01" placeHolder="Current Price" >
-<input style='width:14%;'  id="interest" name="interest" rows="1" cols="15" type="number" step="0.01" placeHolder="Risk-Free Interest Rate" >
+<input style='width:14%;'  id="currPrice" name="currPrice" rows="1" cols="15" type="number" step="0.01" placeHolder="Current Price">
 <input style='width:14%;'  id="volatility" name="volatility" rows="1" cols="15" type="number" step="0.01" placeHolder="Volatility" >
+<input style='width:14%;'  id="interest" name="interest" rows="1" cols="15" type="number" step="0.01" placeHolder="Risk-Free Interest Rate" >
 <input style='width:14%;'  id="time" name="time" rows="1" cols="15" type="number" step="0.01" placeHolder="Time to Expiry (yrs)" >
 
 
