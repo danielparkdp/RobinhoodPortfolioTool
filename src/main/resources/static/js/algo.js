@@ -48,6 +48,13 @@ $(document).ready(() => {
 			} else {
 				document.getElementById("currPrice").value = price;
 			}
+
+			let vol = responseObject.volatility;
+			if (vol < 0.0){
+				err.text("Invalid Stock Ticker");
+			} else {
+				document.getElementById("volatility").value = vol;
+			}
 		});
 
 	});

@@ -162,7 +162,7 @@ public final class Main {
 
       Company comp = new Company(s);
 
-      Map<String, Object> variables = ImmutableMap.of("price", comp.getPrice());
+      Map<String, Object> variables = ImmutableMap.of("price", comp.getPrice(), "volatility", comp.getVolatility());
       return GSON.toJson(variables);
     }
 
