@@ -37,6 +37,7 @@ $(document).ready(() => {
 	  // volatility = document.getElementById("volatility").value.trim();
 		// time = document.getElementById("time").value.trim();
 		companyName = document.getElementById("companyname").value.trim();
+		err.text("");
 
 		const postParameters = {companyName : companyName};
 
@@ -54,6 +55,17 @@ $(document).ready(() => {
 				err.text("Invalid Stock Ticker");
 			} else {
 				document.getElementById("volatility").value = vol;
+			}
+			if (err.text()===""){
+				let lower = price - Math.sqrt(vol*price);
+				let higher = price + Math.sqrt(vol*price);
+
+				document.getElementById("midrangeLower").value = lower.toString();
+				document.getElementById("midrangeUpper").value = higher.toString();
+
+
+				document.getElementById("interest").value = 0.001;
+				document.getElementById("time").value = 1.0;
 			}
 		});
 
