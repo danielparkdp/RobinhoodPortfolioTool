@@ -22,6 +22,9 @@ public class Company {
   public double getPrice(){
     int count = 0;
     double val = 0.0;
+    if (company.trim().length() == 0){
+      return 0.0;
+    }
     try {
       Document doc = Jsoup.connect("https://ca.finance.yahoo.com/quote/".concat(company)).get();
       Elements prices = doc.getElementsByClass("Trsdu(0.3s) Fw(b) Fz(36px) Mb(-4px) D(ib)");
@@ -50,7 +53,10 @@ public class Company {
   public double getVolatility(){
     int count = 0;
     double val = 0.0;
-    List<Double> pastTen = new ArrayList<>();
+    if (company.trim().length() == 0){
+      return 0.0;
+    }
+    List<Double> pastEleven = new ArrayList<>();
     try {
       Document doc = Jsoup.connect("https://ca.finance.yahoo.com/quote/"+company+"/history?p="+ company).get();
       Elements prices = doc.getElementsByClass("Py(10px) Pstart(10px)");
@@ -65,9 +71,9 @@ public class Company {
         if (temp.trim().length() == 0){
           return -1.0;
         }
-        //System.out.println(temp);
-        pastTen.add(Double.parseDouble(temp));
-        if(pastTen.size() >= 10){
+
+        pastEleven.add(Double.parseDouble(temp));
+        if(pastEleven.size() > 11){
           break;
         }
       }
@@ -79,12 +85,27 @@ public class Company {
     if (count == 0){
       return -1.0;
     }
-    val = variance(pastTen);
+    List<Double> logReturns = getLogReturns(pastEleven);
+    //252 trading days assumed per year (annualized)
+    val = Math.sqrt(variance(logReturns)) * Math.sqrt(252);
     if (pr < 0.01){
       return -1.0;
     }
-    vol = val/pr;
+    vol = val;
     return vol;
+  }
+
+  private List<Double> getLogReturns(List<Double> a){
+    List<Double> toRet = new ArrayList<>();
+    if (a == null || a.size() < 2){
+      return toRet;
+    }
+    for (int i = a.size()-2; i >= 0; i--){
+      toRet.add(Math.log(a.get(i)) - Math.log(a.get(i+1)));
+    }
+    Collections.reverse(toRet);
+    return toRet;
+
   }
 
   private double variance(List<Double> a){

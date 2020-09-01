@@ -57,8 +57,8 @@ $(document).ready(() => {
 				document.getElementById("volatility").value = vol;
 			}
 			if (err.text()===""){
-				let lower = price - Math.sqrt(vol*price);
-				let higher = price + Math.sqrt(vol*price);
+				let lower = price - vol/Math.sqrt(252)*price;
+				let higher = price + vol/Math.sqrt(252)*price;
 
 				document.getElementById("midrangeLower").value = lower.toString();
 				document.getElementById("midrangeUpper").value = higher.toString();
