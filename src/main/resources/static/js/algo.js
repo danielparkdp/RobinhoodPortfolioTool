@@ -10,6 +10,11 @@ const addButton = $("#add_button");
 const subButton = $("#sub_button");
 const inputArea = $("#input_area");
 
+const priceTop = $("#currPrice");
+const volTop = $("#volatility");
+const intTop = $("#interest");
+const timeTop = $("#time");
+
 const input1 = $("#downsideProb");
 const input2 = $("#downsideLower");
 const input3 = $("#downsideUpper");
@@ -48,6 +53,7 @@ $(document).ready(() => {
 				err.text("Invalid Stock Ticker");
 			} else {
 				document.getElementById("currPrice").value = price;
+				priceTop.css("animation", "initialChange 0.64s forwards");
 			}
 
 			let vol = responseObject.volatility;
@@ -55,17 +61,21 @@ $(document).ready(() => {
 				err.text("Invalid Stock Ticker");
 			} else {
 				document.getElementById("volatility").value = vol;
+				volTop.css("animation", "initialChange 0.64s forwards");
 			}
 			if (err.text()===""){
 				let lower = price - vol/Math.sqrt(252)*price;
 				let higher = price + vol/Math.sqrt(252)*price;
 
 				document.getElementById("midrangeLower").value = lower.toString();
+				input5.css("animation", "initialChange 0.64s forwards");
 				document.getElementById("midrangeUpper").value = higher.toString();
-
+				input6.css("animation", "initialChange 0.64s forwards");
 
 				document.getElementById("interest").value = 0.001;
+				intTop.css("animation", "initialChange 0.64s forwards");
 				document.getElementById("time").value = 1.0;
+				timeTop.css("animation", "initialChange 0.64s forwards");
 			}
 		});
 
@@ -371,7 +381,7 @@ function getColor(val) {
 	} else if (val === "four"){
 		return "#BEFC65";
 	} else if (val === "three"){
-		return "#FCF365";
+		return "#ffdd99";
 	} else if (val === "two"){
 		return "#FCA065";
 	} else {
